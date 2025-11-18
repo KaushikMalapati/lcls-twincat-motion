@@ -680,6 +680,10 @@
       <DefaultResolution>lcls-twincat-math, * (SLAC - LCLS)</DefaultResolution>
       <Namespace>lcls_twincat_math</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="LCLS_OOPMotion">
+      <DefaultResolution>LCLS_OOPMotion, * (SLAC)</DefaultResolution>
+      <Namespace>LCLS_OOPMotion</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="PMPS">
       <DefaultResolution>PMPS, * (SLAC - LCLS)</DefaultResolution>
       <Namespace>PMPS</Namespace>
@@ -733,6 +737,11 @@
     <None Include="Library.tmc">
       <SubType>Content</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderResolution Include="LCLS_OOPMotion">
+      <Resolution>LCLS_OOPMotion, 1.0.1 (SLAC)</Resolution>
+    </PlaceholderResolution>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
