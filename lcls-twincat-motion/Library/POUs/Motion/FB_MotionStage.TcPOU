@@ -37,10 +37,13 @@ VAR
     rtMoveCmdShortcut: R_TRIG;
     rtHomeCmdShortcut: R_TRIG;
     rtEnableMode: R_TRIG;
-    
+
+    {attribute 'pytmc' := 'pv: '}
     stMotionStatus : ST_MotionStatus;
     stMotionCmdPrev : ST_MotionCommand;
+    {attribute 'pytmc' := 'pv: '}
     stMotionCmdNow : ST_MotionCommand;
+    {attribute 'pytmc' := 'pv: '}
     stExMotionStatus : ST_ExtendedMotionStatus;
     stMotionStageMethods : REFERENCE TO ST_MotionStage;
 END_VAR
@@ -378,7 +381,7 @@ fbNCParams(
 fbSaveRestore(
     stMotionStage:=stMotionStage,
     bEnable:=stMotionStage.nHomingMode <> E_EpicsHomeCmd.NONE);
-    
+
 // Main Motion Status Structure
 stMotionStatus.nMotionAxisID    := stMotionStage.Axis.NcToPlc.AxisId;
 stMotionStatus.bEnabled         := stMotionStage.bAllEnable;
@@ -397,18 +400,18 @@ stMotionStatus.nErrorId         := stMotionStage.nErrorId;
 stMotionStatus.sErrorMessage    := stMotionStage.sErrorMessage;
 
 // Extended Motion Status (Debug, Testing) NOT SUPPORTED BY THIS IMPLEMENTATION
-// stExMotionStatus.bMotionAxisError    
-// stExMotionStatus.nMotionAxisErrorId  
-// stExMotionStatus.bInterlocksError    
-// stExMotionStatus.nInterlocksError    
-// stExMotionStatus.eDriveState         
-// stExMotionStatus.bAbortDone          
-// stExMotionStatus.bAborted            
-// stExMotionStatus.bLimHomeDone        
+// stExMotionStatus.bMotionAxisError
+// stExMotionStatus.nMotionAxisErrorId
+// stExMotionStatus.bInterlocksError
+// stExMotionStatus.nInterlocksError
+// stExMotionStatus.eDriveState
+// stExMotionStatus.bAbortDone
+// stExMotionStatus.bAborted
+// stExMotionStatus.bLimHomeDone
 // stExMotionStatus.bDriveWatchDogStatus
-// stExMotionStatus.bNewMoveReq         
-// stExMotionStatus.bEnable             
-// stExMotionStatus.bIdling             
+// stExMotionStatus.bNewMoveReq
+// stExMotionStatus.bEnable
+// stExMotionStatus.bIdling
 
 // Main Motion Command Structure
 stMotionCmdNow.bHalt := FALSE;
@@ -431,10 +434,10 @@ stMotionCmdPrev := stMotionCmdNow;
       <Declaration><![CDATA[
 METHOD AbsoluteMove
 VAR_INPUT
-	Position	: LREAL;
-	Velocity	: LREAL;
-	Acceleration	: LREAL;
-	Deceleration	: LREAL;
+    Position	: LREAL;
+    Velocity	: LREAL;
+    Acceleration	: LREAL;
+    Deceleration	: LREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -455,10 +458,10 @@ THIS^.stMotionStageMethods.bMoveCmd := TRUE;
       <Declaration><![CDATA[
 METHOD AbsoluteMoveWithBacklashCompensation
 VAR_INPUT
-	Position	: LREAL;
-	Velocity	: LREAL;
-	Acceleration	: LREAL;
-	Deceleration	: LREAL;
+    Position	: LREAL;
+    Velocity	: LREAL;
+    Acceleration	: LREAL;
+    Deceleration	: LREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -517,7 +520,7 @@ PROPERTY EnableMode : LCLS_OOPMotion.E_StageEnableMode
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-CASE THIS^.stMotionStageMethods.nBrakeMode OF
+CASE THIS^.stMotionStageMethods.nEnableMode OF
     E_StageEnableMode.ALWAYS:
         EnableMode := LCLS_OOPMotion.E_StageEnableMode.ALWAYS;
     E_StageEnableMode.DURING_MOTION:
@@ -574,8 +577,8 @@ THIS^.stMotionStageMethods.bExecute := FALSE;
       <Declaration><![CDATA[
 METHOD Home
 VAR_INPUT
-	HomePosition	: LREAL;
-	HomeMode	: INT;
+    HomePosition	: LREAL;
+    HomeMode	: INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -666,7 +669,7 @@ PROPERTY SaveAxisParams : BOOL
       <Declaration><![CDATA[
 METHOD StateMove
 VAR_INPUT
-	Execute	: BOOL;
+    Execute	: BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -677,92 +680,5 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <LineIds Name="FB_MotionStage">
-      <LineId Id="294" Count="1" />
-      <LineId Id="291" Count="0" />
-      <LineId Id="289" Count="0" />
-      <LineId Id="292" Count="1" />
-      <LineId Id="402" Count="2" />
-      <LineId Id="428" Count="1" />
-      <LineId Id="405" Count="0" />
-      <LineId Id="430" Count="1" />
-      <LineId Id="406" Count="0" />
-      <LineId Id="432" Count="1" />
-      <LineId Id="407" Count="0" />
-      <LineId Id="434" Count="1" />
-      <LineId Id="408" Count="0" />
-      <LineId Id="436" Count="1" />
-      <LineId Id="409" Count="0" />
-      <LineId Id="438" Count="1" />
-      <LineId Id="410" Count="0" />
-      <LineId Id="440" Count="1" />
-      <LineId Id="411" Count="0" />
-      <LineId Id="442" Count="1" />
-      <LineId Id="412" Count="0" />
-      <LineId Id="444" Count="1" />
-      <LineId Id="413" Count="0" />
-      <LineId Id="446" Count="1" />
-      <LineId Id="414" Count="0" />
-      <LineId Id="448" Count="1" />
-      <LineId Id="415" Count="0" />
-      <LineId Id="450" Count="0" />
-      <LineId Id="401" Count="0" />
-      <LineId Id="290" Count="0" />
-      <LineId Id="3" Count="285" />
-      <LineId Id="2" Count="0" />
-      <LineId Id="341" Count="0" />
-      <LineId Id="344" Count="15" />
-      <LineId Id="374" Count="12" />
-      <LineId Id="342" Count="0" />
-      <LineId Id="506" Count="0" />
-      <LineId Id="470" Count="0" />
-      <LineId Id="456" Count="10" />
-      <LineId Id="452" Count="0" />
-      <LineId Id="468" Count="0" />
-      <LineId Id="467" Count="0" />
-      <LineId Id="469" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.AbsoluteMove">
-      <LineId Id="1" Count="10" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.AbsoluteMoveWithBacklashCompensation">
-      <LineId Id="1" Count="10" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.BrakeMode.Get">
-      <LineId Id="1" Count="9" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.BrakeMode.Set">
-      <LineId Id="1" Count="8" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.EnableMode.Get">
-      <LineId Id="1" Count="9" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.EnableMode.Set">
-      <LineId Id="1" Count="8" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.ExMotionStatus.Get">
-      <LineId Id="1" Count="2" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.Halt">
-      <LineId Id="1" Count="6" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.Home">
-      <LineId Id="1" Count="27" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.MotionCmd.Get">
-      <LineId Id="1" Count="2" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.MotionStatus.Get">
-      <LineId Id="1" Count="2" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.Reset">
-      <LineId Id="1" Count="6" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.SaveAxisParams.Set">
-      <LineId Id="1" Count="2" />
-    </LineIds>
-    <LineIds Name="FB_MotionStage.StateMove">
-      <LineId Id="1" Count="4" />
-    </LineIds>
   </POU>
 </TcPlcObject>
